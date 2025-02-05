@@ -1,6 +1,7 @@
 import streamlit as st
 import zipfile
 import os
+import sys
 from langchain_community.vectorstores import Pinecone as PineconeVectorStore 
 from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
@@ -8,6 +9,11 @@ from dotenv import load_dotenv
 from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq
 from src.helper import download_huggingface_embedding, load_data, load_data_from_uploaded_pdf, load_data_from_url, text_split
+
+# Force Streamlit to use pysqlite3 instead of the outdated system sqlite3
+os.environ["PYTHON_SQLITE3_VERSION"] = "3.35.0"
+sys.modules["sqlite3"] = import("pysqlite3")
+sys.modules["sqlite3.dbapi2"] = sys.modules["sqlite3"]
 
 def extract_zip(zip_file, extract_to):
     """Extracts the zip file if the target directories do not exist."""
