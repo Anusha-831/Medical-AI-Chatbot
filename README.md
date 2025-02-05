@@ -39,4 +39,7 @@ Enhancing response accuracy with fine-tuned models.
 This project is open-source under the MIT License.
 
 ## 🔗 Connect with Me
-LinkedIn | GitHub | YouTube: Learn with Anu
+# 🔗 Connect with Me  
+- [LinkedIn](https://www.linkedin.com/in/your-username/)  
+- [GitHub](https://github.com/your-username/)  
+- [YouTube: Learn with Anu](https://www.youtube.com/channel/your-channel-id)
