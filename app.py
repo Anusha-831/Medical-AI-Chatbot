@@ -12,7 +12,7 @@ from src.helper import download_huggingface_embedding, load_data, load_data_from
 
 # Force Streamlit to use pysqlite3 instead of the outdated system sqlite3
 os.environ["PYTHON_SQLITE3_VERSION"] = "3.35.0"
-sys.modules["sqlite3"] = import("pysqlite3")
+sys.modules["sqlite3"] = __import__("pysqlite3")
 sys.modules["sqlite3.dbapi2"] = sys.modules["sqlite3"]
 
 def extract_zip(zip_file, extract_to):
