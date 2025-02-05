@@ -1,4 +1,5 @@
 import streamlit as st
+import zipfile
 import os
 from langchain_community.vectorstores import Pinecone as PineconeVectorStore 
 from langchain.chains import RetrievalQA
@@ -6,19 +7,30 @@ from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq
-from src.helper import download_huggingface_embedding, load_data, load_data_from_uploaded_pdf, load_data_from_url,text_split
+from src.helper import download_huggingface_embedding, load_data, load_data_from_uploaded_pdf, load_data_from_url, text_split
+
+def extract_zip(zip_file, extract_to):
+    """Extracts the zip file if the target directories do not exist."""
+    if not os.path.exists("chroma_db_url") or not os.path.exists("chroma_db_pdf"):
+        with zipfile.ZipFile(zip_file, "r") as zip_ref:
+            zip_ref.extractall(extract_to)
+        print("Zip file extracted successfully.")
+
 def main():
+    # Extract ChromaDB data from zip
+    zip_file_path = "chroma_db_data.zip"
+    extract_zip(zip_file_path, "./")
+
+    # Load environment variables
+    load_dotenv()
 
     PINECONE_INDEX_NAME = "medical"
     GROQ_API_KEY = os.getenv('GROQ_API_KEY')
     embeddings = download_huggingface_embedding()
 
-    #load environment variable
-    load_dotenv()
-
-    #configure streamlit page settings
+    # Configure Streamlit page settings
     st.set_page_config(page_title="Medical AI Assistant",
-                       page_icon=" 💊",
+                       page_icon="💊",
                        layout="centered")
     
     st.title("Medical AI Assistant 💊")
@@ -36,30 +48,30 @@ def main():
 
     # Placeholder to display user choice or data
     if uploaded_file:
-        print(uploaded_file)
-        st.success(f" Processing {uploaded_file.name} file... PDF Uploaded Successfully!")
+        st.success(f"Processing {uploaded_file.name} file... PDF Uploaded Successfully!")
         with open("uploaded_file.pdf", "wb") as f:
             f.write(uploaded_file.getbuffer())
 
         docs = load_data_from_uploaded_pdf("uploaded_file.pdf")
-        doc_chucks = text_split(docs)
-        docsearch = Chroma.from_documents(documents=doc_chucks,
-                                           embedding=embeddings,
-                                           collection_name="PDF_database",
-                                           persist_directory="./chroma_db_pdf")
+        doc_chunks = text_split(docs)
+        docsearch = Chroma.from_documents(documents=doc_chunks,
+                                          embedding=embeddings,
+                                          collection_name="PDF_database",
+                                          persist_directory="./chroma_db_pdf")
+
     elif url:
-        st.success("Provided URL : {}".format(url))
+        st.success(f"Provided URL: {url}")
         docs = load_data_from_url(url=url)
-        doc_chucks = text_split(docs)
-        docsearch = Chroma.from_documents (documents=doc_chucks,
-                                           embedding=embeddings,
-                                           collection_name="URL_database",
-                                           persist_directory="./chroma_db_url")
+        doc_chunks = text_split(docs)
+        docsearch = Chroma.from_documents(documents=doc_chunks,
+                                          embedding=embeddings,
+                                          collection_name="URL_database",
+                                          persist_directory="./chroma_db_url")
         st.success("Index loaded Successfully!")
 
     elif use_default:
         st.success("Using Medical data!")
-        #Loading the index
+        # Loading the index
         try:
             docsearch = PineconeVectorStore.from_existing_index(PINECONE_INDEX_NAME, embeddings)
             st.success("Index loaded Successfully!")
@@ -70,15 +82,6 @@ def main():
         st.info("Please Upload a File, Enter a URL, or Select default data to Proceed.")
         st.stop()
     
-    # prompt_template = """
-    # Use the given information context to give appropriate answer for the user's question.
-    # If you don't know the answer, just say that you know the answer, but don't make up an answer.
-    # Context: {context}
-    # Question: {question}
-    # Only return the appropriate answer and nothing else.
-    # Helpful answer:
-    # """
-
     prompt_template = """
     Use the given context to answer the user's question. 
     If the context does not contain relevant information, reply with:
@@ -90,9 +93,9 @@ def main():
     """
 
     PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
-    chain_type_kwargs={"prompt": PROMPT}
+    chain_type_kwargs = {"prompt": PROMPT}
 
-    # llm
+    # Initialize LLM
     llm = ChatGroq(
         api_key=GROQ_API_KEY,
         model="mixtral-8x7b-32768", 
@@ -100,7 +103,6 @@ def main():
         max_tokens=1000,
         timeout=60
     )
-
     qa = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type='stuff',
@@ -113,18 +115,16 @@ def main():
     if "chat_history" not in st.session_state:
         st.session_state["chat_history"] = []
 
-    input = st.chat_input("Ask Your Question")
-    print(input)
-    if input:
-        result=qa.invoke(input)
-        print("Response : ", result["result"])
+    input_text = st.chat_input("Ask Your Question")
+    if input_text:
+        result = qa.invoke(input_text)
         response = result["result"]
-        st.session_state["chat_history"].append((input, response))
+        st.session_state["chat_history"].append((input_text, response))
 
     # Display chat history
     for question, answer in st.session_state["chat_history"]:
-        st.write(f"**🧑🏻 :** {question}")
-        st.write(f"**👩🏻‍⚕️ :** {answer}")
+        st.write(f"🧑🏻 : {question}")
+        st.write(f"👩🏻‍⚕️ : {answer}")
 
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
