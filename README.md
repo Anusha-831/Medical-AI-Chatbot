@@ -40,6 +40,6 @@ This project is open-source under the MIT License.
 
 ## 🔗 Connect with Me
 # 🔗 Connect with Me  
-- [LinkedIn](https://www.linkedin.com/in/your-username/)  
-- [GitHub](https://github.com/your-username/)  
-- [YouTube: Learn with Anu](https://www.youtube.com/channel/your-channel-id)
+- [LinkedIn](https://www.linkedin.com/in/anusha-koyyada-8b3032261)  
+- [GitHub](https://github.com/Anusha-831)  
+- [YouTube: Learn with Anu](https://youtube.com/@learnwithanu31)
