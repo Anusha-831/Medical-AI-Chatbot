@@ -38,8 +38,7 @@ Enhancing response accuracy with fine-tuned models.
 ## 📜 License
 This project is open-source under the MIT License.
 
-## 🔗 Connect with Me
-# 🔗 Connect with Me  
+## 🔗 Connect with Me 
 - [LinkedIn](https://www.linkedin.com/in/anusha-koyyada-8b3032261)  
 - [GitHub](https://github.com/Anusha-831)  
 - [YouTube: Learn with Anu](https://youtube.com/@learnwithanu31)
