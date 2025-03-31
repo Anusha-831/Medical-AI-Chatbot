@@ -1,14 +1,14 @@
 import streamlit as st
 import zipfile
 
-    # Configure Streamlit page settings
-    st.set_page_config(page_title="Medical AI Assistant",
-                       page_icon="💊",
-                       layout="centered")
+# Configure Streamlit page settings
+st.set_page_config(page_title="Medical AI Assistant",
+                   page_icon="💊",
+                   layout="centered")
     
-    st.title("Medical AI Assistant 💊")
-    st.markdown("### Your AI-powered Assistant for medical queries and document analysis")
-    st.markdown("#### 📂 Upload a PDF or URL or Use Default data to get Started")
+st.title("Medical AI Assistant 💊")
+st.markdown("### Your AI-powered Assistant for medical queries and document analysis")
+st.markdown("#### 📂 Upload a PDF or URL or Use Default data to get Started")
 
 import os
 import sys
