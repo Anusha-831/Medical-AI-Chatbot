@@ -1,5 +1,15 @@
 import streamlit as st
 import zipfile
+
+    # Configure Streamlit page settings
+    st.set_page_config(page_title="Medical AI Assistant",
+                       page_icon="💊",
+                       layout="centered")
+    
+    st.title("Medical AI Assistant 💊")
+    st.markdown("### Your AI-powered Assistant for medical queries and document analysis")
+    st.markdown("#### 📂 Upload a PDF or URL or Use Default data to get Started")
+
 import os
 import sys
 from langchain_community.vectorstores import Pinecone as PineconeVectorStore 
@@ -36,15 +46,6 @@ def main():
     PINECONE_INDEX_NAME = "medical"
     GROQ_API_KEY = os.getenv('GROQ_API_KEY')
     embeddings = download_huggingface_embedding()
-
-    # Configure Streamlit page settings
-    st.set_page_config(page_title="Medical AI Assistant",
-                       page_icon="💊",
-                       layout="centered")
-    
-    st.title("Medical AI Assistant 💊")
-    st.markdown("### Your AI-powered Assistant for medical queries and document analysis")
-    st.markdown("#### 📂 Upload a PDF or URL or Use Default data to get Started")
 
     # Upload file as input
     uploaded_file = st.sidebar.file_uploader("Upload a PDF File", type="pdf")
