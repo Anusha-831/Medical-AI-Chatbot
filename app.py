@@ -13,15 +13,26 @@ from src.helper import download_huggingface_embedding, load_data_from_uploaded_p
 
 # Force Streamlit to use pysqlite3 instead of the outdated system sqlite3
 
-os.environ["PYTHON_SQLITE3_VERSION"] = "3.35.0" sys.modules["sqlite3"] = import("pysqlite3") sys.modules["sqlite3.dbapi2"] = sys.modules["sqlite3"]
+os.environ["PYTHON_SQLITE3_VERSION"] = "3.35.0" 
+sys.modules["sqlite3"] = import("pysqlite3") 
+sys.modules["sqlite3.dbapi2"] = sys.modules["sqlite3"]
 
 # Configure Streamlit page settings
 
-st.set_page_config(page_title="Medical AI Assistant", page_icon="💊", layout="centered") st.title("Medical AI Assistant 💊") st.markdown("### Your AI-powered Assistant for medical queries and document analysis") st.markdown("#### 📂 Upload a PDF or URL or Use Default data to get Started")
+st.set_page_config(page_title="Medical AI Assistant", page_icon="💊", layout="centered") 
+st.title("Medical AI Assistant 💊") 
+st.markdown("### Your AI-powered Assistant for medical queries and document analysis") 
+st.markdown("#### 📂 Upload a PDF or URL or Use Default data to get Started")
 
-def extract_zip(zip_file, extract_to): """Extracts the zip file if the target directories do not exist.""" if not os.path.exists("chroma_db_url") or not os.path.exists("chroma_db_pdf"): with zipfile.ZipFile(zip_file, "r") as zip_ref: zip_ref.extractall(extract_to) print("Zip file extracted successfully.")
+def extract_zip(zip_file, extract_to): 
+    """Extracts the zip file if the target directories do not exist.""" 
+    if not os.path.exists("chroma_db_url") or not os.path.exists("chroma_db_pdf"): 
+        with zipfile.ZipFile(zip_file, "r") as zip_ref: 
+            zip_ref.extractall(extract_to) print("Zip file extracted successfully.")
 
-def main(): # Extract ChromaDB data from zip zip_file_path = "chroma_db_data.zip" extract_zip(zip_file_path, "./")
+def main(): # Extract ChromaDB data from zip 
+    zip_file_path = "chroma_db_data.zip" 
+    extract_zip(zip_file_path, "./")
 
 # Load environment variables
 load_dotenv()
