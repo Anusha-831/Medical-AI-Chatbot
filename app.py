@@ -11,11 +11,11 @@ from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq 
 from src.helper import download_huggingface_embedding, load_data_from_uploaded_pdf, load_data_from_url, text_split
 
-Force Streamlit to use pysqlite3 instead of the outdated system sqlite3
+3Force Streamlit to use pysqlite3 instead of the outdated system sqlite3
 
 os.environ["PYTHON_SQLITE3_VERSION"] = "3.35.0" sys.modules["sqlite3"] = import("pysqlite3") sys.modules["sqlite3.dbapi2"] = sys.modules["sqlite3"]
 
-Configure Streamlit page settings
+3Configure Streamlit page settings
 
 st.set_page_config(page_title="Medical AI Assistant", page_icon="💊", layout="centered") st.title("Medical AI Assistant 💊") st.markdown("### Your AI-powered Assistant for medical queries and document analysis") st.markdown("#### 📂 Upload a PDF or URL or Use Default data to get Started")
 
