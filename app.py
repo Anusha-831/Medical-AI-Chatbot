@@ -10,6 +10,9 @@ from langchain_community.vectorstores import Chroma
 from langchain_groq import ChatGroq
 from src.helper import download_huggingface_embedding, load_data, load_data_from_uploaded_pdf, load_data_from_url, text_split
 
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+PINECONE_API_KEY = st.secrets["PINECONE_API_KEY"]
+
 # Force Streamlit to use pysqlite3 instead of the outdated system sqlite3
 os.environ["PYTHON_SQLITE3_VERSION"] = "3.35.0"
 sys.modules["sqlite3"] = __import__("pysqlite3")
