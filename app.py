@@ -2,14 +2,14 @@ import streamlit as st
 import zipfile 
 import os 
 import sys 
-import requests from langchain_community.vectorstores 
-import Pinecone as PineconeVectorStore from langchain.chains 
-import RetrievalQA from langchain_core.prompts 
-import PromptTemplate from dotenv 
-import load_dotenv from langchain_community.vectorstores 
-import Chroma from langchain_groq 
-import ChatGroq from src.helper 
-import download_huggingface_embedding, load_data_from_uploaded_pdf, load_data_from_url, text_split
+import requests 
+from langchain_community.vectorstores import Pinecone as PineconeVectorStore 
+from langchain.chains import RetrievalQA 
+from langchain_core.prompts import PromptTemplate 
+from dotenv import load_dotenv 
+from langchain_community.vectorstores import Chroma 
+from langchain_groq import ChatGroq 
+from src.helper import download_huggingface_embedding, load_data_from_uploaded_pdf, load_data_from_url, text_split
 
 Force Streamlit to use pysqlite3 instead of the outdated system sqlite3
 
