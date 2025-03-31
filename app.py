@@ -28,7 +28,8 @@ def extract_zip(zip_file, extract_to):
     """Extracts the zip file if the target directories do not exist.""" 
     if not os.path.exists("chroma_db_url") or not os.path.exists("chroma_db_pdf"): 
         with zipfile.ZipFile(zip_file, "r") as zip_ref: 
-            zip_ref.extractall(extract_to) print("Zip file extracted successfully.")
+            zip_ref.extractall(extract_to) 
+        print("Zip file extracted successfully.")
 
 def main(): # Extract ChromaDB data from zip 
     zip_file_path = "chroma_db_data.zip" 
