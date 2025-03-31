@@ -107,7 +107,7 @@ def main():
     # Initialize LLM
     llm = ChatGroq(
         api_key=GROQ_API_KEY,
-        model="mixtral-8x7b", 
+        model="llama3-8b-8192", 
         temperature=0.5,
         max_tokens=1000,
         timeout=60
