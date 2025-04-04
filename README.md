@@ -17,7 +17,7 @@ Hosting: Deployed using Streamlit
 
 ## ⚡️ Installation & Setup
 ### 1️⃣ Clone the Repository
-git clone https://github.com/your-username/Medical-AI-Assistant.git
+git clone https://github.com/your-username/Medical-AI-Chatbot.git
 cd Medical-AI-Assistant
 ### 2️⃣ Install Dependencies
 pip install -r requirements.txt
